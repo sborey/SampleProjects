@@ -84,7 +84,7 @@
                     </div>
                     <div>
                         @Html.LabelFor(model => model.NewItem.RetailPrice)
-                        $@Html.TextBoxFor(model => model.NewItem.RetailPrice, new { required = "required", pattern=@"\d+(\.\d{2})?" })
+                        $@Html.TextBoxFor(model => model.NewItem.RetailPrice, "{0:0.00}", new { required = "required", pattern=@"\d+(\.\d{2})?" })
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -243,8 +243,8 @@
         var currQty = button.data('currqty');
         var maxQty = button.data('maxqty');
         var orderThresh = button.data('thresh');
-        var unitCost = button.data('cost');
-        var retailPrice = button.data('retail');
+        var unitCost = parseFloat(button.data('cost'));
+        var retailPrice = parseFloat(button.data('retail'));
         var modal = $(this);
         modal.find('#editItemID').val(itemID);
         modal.find('#editSKU').val(sku);
@@ -253,8 +253,8 @@
         modal.find('#editCurrentQty').val(currQty);
         modal.find('#editMaxQty').val(maxQty);
         modal.find('#editOrderThreshold').val(orderThresh);
-        modal.find('#editUnitCost').val(unitCost);
-        modal.find('#editRetailPrice').val(retailPrice);
+        modal.find('#editUnitCost').val(unitCost.toFixed(2));
+        modal.find('#editRetailPrice').val(retailPrice.toFixed(2));
     });
 
     $('#deleteModal').on('show.bs.modal', function (event) {
